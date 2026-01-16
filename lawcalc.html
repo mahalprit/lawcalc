@@ -4,51 +4,223 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>Real Estate Legal Fee & Disbursement Calculator (Ontario)</title>
+  <title>Ontario Real Estate Calculator</title>
   <meta name="color-scheme" content="light only" />
   <style>
-    :root{
-      --bg:#f6f7fb; --card:#ffffff; --text:#1f2937; --muted:#6b7280;
-      --brand:#2563eb; --ok:#16a34a; --bad:#dc2626; --border:#e5e7eb;
-    }
+    :root{--bg:#f6f7fb;--card:#fff;--text:#111;--muted:#6b7280;--brand:#2563eb;--border:#e5e7eb}
     *{box-sizing:border-box}
-    body{margin:0;font-family:system-ui,-apple-system,Segoe UI,Roboto,Helvetica,Arial,sans-serif;background:var(--bg);color:var(--text)}
-    .container{max-width:1080px;margin:24px auto;padding:0 16px;}
-    h1{font-size:22px;margin:0 0 16px}
+    body{margin:0;background:var(--bg);color:var(--text);font:14px/1.45 system-ui,-apple-system,Segoe UI,Roboto,Helvetica,Arial,sans-serif}
+    .wrap{max-width:1080px;margin:24px auto;padding:0 16px}
+    h1{margin:0 0 16px;font-size:22px}
     .grid{display:grid;grid-template-columns:360px 1fr;gap:16px}
-    @media (max-width: 900px){.grid{grid-template-columns:1fr;}}
-    .card{background:var(--card);border:1px solid var(--border);border-radius:10px;box-shadow:0 1px 0 rgba(0,0,0,.04)}
-    .card h2{font-size:18px;margin:0;padding:14px 16px;border-bottom:1px solid var(--border)}
+    @media (max-width:900px){.grid{grid-template-columns:1fr}}
+    .card{background:var(--card);border:1px solid var(--border);border-radius:10px}
+    .card h2{margin:0;padding:12px 16px;border-bottom:1px solid var(--border);font-size:18px}
     .card .content{padding:14px 16px}
-    .section-title{font-weight:700;margin:8px 0 10px}
-    label{display:block;font-weight:600;font-size:12px;color:var(--muted);margin:10px 0 6px}
-    input[type=text], input[type=number], input[type=date]{width:100%;padding:10px 12px;border:1px solid var(--border);border-radius:8px;font-size:14px;background:#fff}
+    label{display:block;margin:10px 0 6px;color:var(--muted);font-weight:600;font-size:12px}
+    input[type=text],input[type=number],input[type=date]{width:100%;padding:10px;border:1px solid var(--border);border-radius:8px;background:#fff}
     .row{display:grid;grid-template-columns:1fr 1fr;gap:10px}
-    .toggle{display:flex;align-items:center;gap:10px;margin:10px 0}
-    .switch{position:relative;display:inline-block;width:46px;height:26px}
+    .toggle{display:flex;align-items:center;gap:10px;margin-top:10px}
+    .switch{position:relative;width:46px;height:26px}
     .switch input{display:none}
-    .slider{position:absolute;cursor:pointer;top:0;left:0;right:0;bottom:0;background:#cbd5e1;transition:.2s;border-radius:999px}
-    .slider:before{position:absolute;content:"";height:22px;width:22px;left:2px;top:2px;background:white;transition:.2s;border-radius:50%}
+    .slider{position:absolute;inset:0;background:#cbd5e1;border-radius:30px;transition:.2s}
+    .slider:before{content:"";position:absolute;height:22px;width:22px;left:2px;top:2px;background:#fff;border-radius:50%;transition:.2s}
     .switch input:checked + .slider{background:var(--brand)}
     .switch input:checked + .slider:before{transform:translateX(20px)}
-    .btn{display:inline-flex;align-items:center;justify-content:center;background:var(--brand);border:1px solid var(--brand);padding:10px 14px;border-radius:8px;font-weight:600;cursor:pointer;color:#fff;margin-top:6px}
-    table{width:100%;border-collapse:separate;border-spacing:0;border:1px solid var(--border);border-radius:8px;overflow:hidden}
-    th, td{padding:10px 12px;border-bottom:1px solid var(--border);font-size:14px;background:#fff}
-    tr:last-child td{border-bottom:none}
-    th{background:#f9fafb;text-align:left}
-    td.amount{text-align:right;white-space:nowrap;width:140px}
-    .sub{color:var(--muted);font-size:12px}
-    .muted{color:var(--muted)}
-    .pos{color:var(--ok);font-weight:700}
+    .btn{margin-top:10px;background:var(--brand);color:#fff;border:none;border-radius:8px;padding:10px 14px;font-weight:700;cursor:pointer;width:100%}
+    table{width:100%;border-collapse:collapse}
+    td{padding:10px;border-bottom:1px solid var(--border)}
+    .amount{text-align:right;white-space:nowrap}
     .total{font-weight:800}
-    .note{font-size:12px;color:var(--muted);margin-top:8px}
-    .pill{font-size:11px;padding:2px 6px;border-radius:6px;border:1px solid var(--border);color:var(--muted)}
+    .note{color:var(--muted);font-size:12px;margin-top:6px}
   </style>
 </head>
 <body>
-  <div class="container">
+  <div class="wrap">
     <h1>Purchase Quote – Legal Fees & Disbursements (Ontario)</h1>
-    <div class="grid">
 
-      <!-- LEFT: Inputs -->
+    <div class="grid">
+      <!-- LEFT -->
       <div class="card">
+        <h2>Customize</h2>
+        <div class="content">
+          <label>Address</label>
+          <input id="address" type="text" placeholder="123 Main St, Ottawa">
+
+          <div class="row">
+            <div>
+              <label>Purchase Price ($)</label>
+              <input id="price" type="number" min="0" step="1000" value="650000">
+            </div>
+            <div>
+              <label>Closing Date</label>
+              <input id="closing" type="date">
+            </div>
+          </div>
+
+          <div class="toggle">
+            <label class="switch">
+              <input id="isFthb" type="checkbox" checked>
+              <span class="slider"></span>
+            </label>
+            <div>First‑Time Home Buyer (FTHB)</div>
+          </div>
+
+          <div class="toggle">
+            <label class="switch">
+              <input id="isCitizen" type="checkbox" checked>
+              <span class="slider"></span>
+            </label>
+            <div>Canadian Citizen / PR</div>
+          </div>
+
+          <div class="toggle">
+            <label class="switch">
+              <input id="isToronto" type="checkbox">
+              <span class="slider"></span>
+            </label>
+            <div>Property in City of Toronto?</div>
+          </div>
+
+          <button class="btn" id="recalc">Recalculate</button>
+          <div class="note">All values in CAD. Edit presets in code for your exact fees.</div>
+        </div>
+      </div>
+
+      <!-- RIGHT -->
+      <div class="card">
+        <h2>Totals</h2>
+        <div class="content">
+          <table>
+            <tr><td>Legal Fee</td><td class="amount" id="legalFeeDisp">$0</td></tr>
+            <tr><td>Promo Discount</td><td class="amount" id="promoDisp">$0</td></tr>
+            <tr><td>Software Fee</td><td class="amount" id="softwareDisp">Included</td></tr>
+            <tr><td>Office Disbursements</td><td class="amount" id="officeDisp">Included</td></tr>
+            <tr><td class="total">Total Legal Fees</td><td class="amount total" id="legalTotalDisp">$0</td></tr>
+
+            <tr><td>Teranet Search Fees</td><td class="amount" id="teranetDisp">$0</td></tr>
+            <tr><td>Title Insurance</td><td class="amount" id="titleDisp">$0</td></tr>
+            <tr><td>ID Verification</td><td class="amount" id="idvDisp">$0</td></tr>
+            <tr><td>Registration Fees</td><td class="amount" id="regDisp">$0</td></tr>
+            <tr><td>Ontario LTT</td><td class="amount" id="lttDisp">$0</td></tr>
+            <tr id="mlttRow" style="display:none;"><td>Toronto MLTT</td><td class="amount" id="mlttDisp">$0</td></tr>
+            <tr><td>HST (13%)</td><td class="amount" id="hstDisp">$0</td></tr>
+            <tr><td class="total">Total Disbursements</td><td class="amount total" id="disbTotalDisp">$0</td></tr>
+          </table>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Inline script kept at the bottom so it runs after the DOM exists -->
+  <script>
+    // --- Firm Presets (edit to your fees) ---
+    const PRESETS = {
+      legalFee: 1299,
+      promoDiscount: 200,
+      softwareFeeIncluded: 0,
+      officeDisbIncluded: 0,
+      teranetEstimate: 288,
+      titleInsuranceEstimate: 460,
+      idvFee: 25,
+      registrationFees: 85,
+      HST: 0.13
+    };
+
+    // --- LTT helpers ---
+    function ontarioLTT(price){
+      let tax = 0;
+      const bands = [
+        {limit:55000,   rate:0.005},
+        {limit:250000,  rate:0.01},
+        {limit:400000,  rate:0.015},
+        {limit:2000000, rate:0.02},
+        {limit:Infinity,rate:0.025}
+      ];
+      let prev = 0;
+      for(const b of bands){
+        const amt = Math.max(0, Math.min(price, b.limit) - prev);
+        if(amt<=0) break;
+        tax += amt * b.rate;
+        prev = b.limit;
+      }
+      return tax;
+    }
+    const torontoMLTT = (price)=> ontarioLTT(price);
+    function fthbRebateOntario(price, isFthb, isCitizen){
+      if(!isFthb || !isCitizen) return 0;
+      return Math.min(4000, ontarioLTT(price));
+    }
+    const fmt = (n)=> n.toLocaleString('en-CA',{style:'currency',currency:'CAD',maximumFractionDigits:0});
+
+    function recalc(){
+      // Bail out quietly if widget IDs aren't on the page (defensive)
+      const priceEl = document.getElementById('price');
+      if(!priceEl) return;
+
+      const price = Number(priceEl.value || 0);
+      const isFthb = document.getElementById('isFthb').checked;
+      const isCitizen = document.getElementById('isCitizen').checked;
+      const isToronto = document.getElementById('isToronto').checked;
+
+      // Legal
+      const legalBase = PRESETS.legalFee;
+      const promo = PRESETS.promoDiscount;
+      const software = PRESETS.softwareFeeIncluded;
+      const office = PRESETS.officeDisbIncluded;
+      const legalSubtotal = Math.max(0, legalBase - promo + software + office);
+
+      // Disbursements
+      const teranet = PRESETS.teranetEstimate;
+      const titleIns = PRESETS.titleInsuranceEstimate;
+      const idv = PRESETS.idvFee;
+      const reg = PRESETS.registrationFees;
+
+      // Taxes
+      let ltt = ontarioLTT(price);
+      ltt = Math.max(0, ltt - fthbRebateOntario(price, isFthb, isCitizen));
+      const mltt = isToronto ? torontoMLTT(price) : 0;
+      const hst = PRESETS.HST * (legalSubtotal + idv);
+
+      const disbTotal = teranet + titleIns + idv + reg + ltt + mltt + hst;
+
+      // Update UI
+      document.getElementById('legalFeeDisp').textContent = fmt(legalBase);
+      document.getElementById('promoDisp').textContent    = '-' + fmt(promo);
+      document.getElementById('softwareDisp').textContent = software>0 ? fmt(software) : 'Included';
+      document.getElementById('officeDisp').textContent   = office>0 ? fmt(office) : 'Included';
+      document.getElementById('legalTotalDisp').textContent = fmt(legalSubtotal);
+
+      document.getElementById('teranetDisp').textContent = fmt(teranet);
+      document.getElementById('titleDisp').textContent   = fmt(titleIns);
+      document.getElementById('idvDisp').textContent     = fmt(idv);
+      document.getElementById('regDisp').textContent     = fmt(reg);
+      document.getElementById('lttDisp').textContent     = fmt(ltt);
+
+      const mlttRow = document.getElementById('mlttRow');
+      if(mlttRow) mlttRow.style.display = isToronto ? '' : 'none';
+      const mlttDisp = document.getElementById('mlttDisp');
+      if(mlttDisp) mlttDisp.textContent = fmt(mltt);
+
+      document.getElementById('hstDisp').textContent = fmt(hst);
+      document.getElementById('disbTotalDisp').textContent = fmt(disbTotal);
+    }
+
+    // Init after DOM
+    document.addEventListener('DOMContentLoaded', () => {
+      const closing = document.getElementById('closing');
+      if(closing){
+        const d = new Date(); d.setDate(d.getDate()+14);
+        closing.value = d.toISOString().slice(0,10);
+      }
+      ['price','isFthb','isCitizen','isToronto'].forEach(id=>{
+        const el = document.getElementById(id);
+        if(el){ el.addEventListener('input', recalc); el.addEventListener('change', recalc); }
+      });
+      const btn = document.getElementById('recalc'); if(btn) btn.addEventListener('click', recalc);
+      recalc();
+    });
+  </script>
+</body>
+</html>
+``
