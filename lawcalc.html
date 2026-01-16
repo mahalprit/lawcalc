@@ -1,0 +1,54 @@
+
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Real Estate Legal Fee & Disbursement Calculator (Ontario)</title>
+  <meta name="color-scheme" content="light only" />
+  <style>
+    :root{
+      --bg:#f6f7fb; --card:#ffffff; --text:#1f2937; --muted:#6b7280;
+      --brand:#2563eb; --ok:#16a34a; --bad:#dc2626; --border:#e5e7eb;
+    }
+    *{box-sizing:border-box}
+    body{margin:0;font-family:system-ui,-apple-system,Segoe UI,Roboto,Helvetica,Arial,sans-serif;background:var(--bg);color:var(--text)}
+    .container{max-width:1080px;margin:24px auto;padding:0 16px;}
+    h1{font-size:22px;margin:0 0 16px}
+    .grid{display:grid;grid-template-columns:360px 1fr;gap:16px}
+    @media (max-width: 900px){.grid{grid-template-columns:1fr;}}
+    .card{background:var(--card);border:1px solid var(--border);border-radius:10px;box-shadow:0 1px 0 rgba(0,0,0,.04)}
+    .card h2{font-size:18px;margin:0;padding:14px 16px;border-bottom:1px solid var(--border)}
+    .card .content{padding:14px 16px}
+    .section-title{font-weight:700;margin:8px 0 10px}
+    label{display:block;font-weight:600;font-size:12px;color:var(--muted);margin:10px 0 6px}
+    input[type=text], input[type=number], input[type=date]{width:100%;padding:10px 12px;border:1px solid var(--border);border-radius:8px;font-size:14px;background:#fff}
+    .row{display:grid;grid-template-columns:1fr 1fr;gap:10px}
+    .toggle{display:flex;align-items:center;gap:10px;margin:10px 0}
+    .switch{position:relative;display:inline-block;width:46px;height:26px}
+    .switch input{display:none}
+    .slider{position:absolute;cursor:pointer;top:0;left:0;right:0;bottom:0;background:#cbd5e1;transition:.2s;border-radius:999px}
+    .slider:before{position:absolute;content:"";height:22px;width:22px;left:2px;top:2px;background:white;transition:.2s;border-radius:50%}
+    .switch input:checked + .slider{background:var(--brand)}
+    .switch input:checked + .slider:before{transform:translateX(20px)}
+    .btn{display:inline-flex;align-items:center;justify-content:center;background:var(--brand);border:1px solid var(--brand);padding:10px 14px;border-radius:8px;font-weight:600;cursor:pointer;color:#fff;margin-top:6px}
+    table{width:100%;border-collapse:separate;border-spacing:0;border:1px solid var(--border);border-radius:8px;overflow:hidden}
+    th, td{padding:10px 12px;border-bottom:1px solid var(--border);font-size:14px;background:#fff}
+    tr:last-child td{border-bottom:none}
+    th{background:#f9fafb;text-align:left}
+    td.amount{text-align:right;white-space:nowrap;width:140px}
+    .sub{color:var(--muted);font-size:12px}
+    .muted{color:var(--muted)}
+    .pos{color:var(--ok);font-weight:700}
+    .total{font-weight:800}
+    .note{font-size:12px;color:var(--muted);margin-top:8px}
+    .pill{font-size:11px;padding:2px 6px;border-radius:6px;border:1px solid var(--border);color:var(--muted)}
+  </style>
+</head>
+<body>
+  <div class="container">
+    <h1>Purchase Quote – Legal Fees & Disbursements (Ontario)</h1>
+    <div class="grid">
+
+      <!-- LEFT: Inputs -->
+      <div class="card">
